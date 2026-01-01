@@ -355,7 +355,7 @@ def check_answer_rep(message, word, topic, words):
         words.pop(0)
         print(words)
         create_repeat_test(message, words, topic)
-    else:
+    elif message.text == get_translation(word, topic, user_id):
         bot.send_message(
             message.chat.id,
             f"Неверно, верный ответ: {get_translation(word, topic, user_id)}"
@@ -363,6 +363,12 @@ def check_answer_rep(message, word, topic, words):
         words.pop(0)
         print(words)
         create_repeat_test(message, words, topic)
+    elif message.text == "Главное меню 🏠":
+        bot.send_message(message.chat.id, "Возвращаемся в главное меню.", reply_markup=main_menu())
+        return
+    else:
+        bot.send_message(message.chat.id, "Вы ввели непонятные символы", reply_markup=main_menu())
+        return
 #
 
 @bot.message_handler(func=lambda m: m.text == "Помощь ❓")
